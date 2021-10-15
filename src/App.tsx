@@ -15,6 +15,7 @@ const client = new QueryClient({
 
 const IndexPage = lazy(() => import("./pages/index"));
 const MovieDetail = lazy(() => import("./pages/movie-detail"));
+const SearchPage = lazy(() => import("./pages/search"));
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={IndexPage} />
               <Route path="/movie/:movieId" component={MovieDetail} />
+              <Route path="/search" component={SearchPage} />
             </Switch>
           </Router>
         </Suspense>

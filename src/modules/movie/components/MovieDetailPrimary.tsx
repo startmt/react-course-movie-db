@@ -1,41 +1,68 @@
-import { Typography } from "antd";
+import { Button, Progress, Typography } from "antd";
 import React from "react";
 import styled from "styled-components";
 import { MovieDetailInterface } from "../../../apis/query/interface";
 import { CategoryTag } from "../../../components/CategoryTag";
 import Container from "../../../components/Container";
-
+import { BookOutlined } from "@ant-design/icons";
 interface MovieDetailPrimaryProps {
   backgroundImageUrl: string;
   posterImageUrl: string;
   title: string;
   categories: MovieDetailInterface["genres"];
   description: string;
+  handleAddBookmark: () => void;
+  percent: number;
 }
 const MovieDetailPrimary: React.FC<MovieDetailPrimaryProps> = (props) => {
-  const { backgroundImageUrl, posterImageUrl, title, categories, description } =
-    props;
+  const {
+    backgroundImageUrl,
+    posterImageUrl,
+    title,
+    categories,
+    description,
+    percent,
+    handleAddBookmark,
+  } = props;
   return (
     <Wrapper background={backgroundImageUrl}>
-      <Container>
-        <ContentWrapper>
-          <img className="poster-image" src={posterImageUrl} />
-          <RightContent>
-            <Typography.Title level={3}>{title}</Typography.Title>
-            <div className="category-wrapper">
-              {categories.map((cate) => (
-                <CategoryTag type={cate.id}>{cate.name}</CategoryTag>
-              ))}
-            </div>
-          </RightContent>
-        </ContentWrapper>
-      </Container>
+      <BackgroundOpacity>
+        <Container>
+          <ContentWrapper>
+            <img className="poster-image" src={posterImageUrl} />
+            <RightContent>
+              <Typography.Title level={2}>{title}</Typography.Title>
+              <div className="submenu-wrapper">
+                <Progress width={40} type="circle" percent={percent} />
+                <Button
+                  onClick={handleAddBookmark}
+                  type="primary"
+                  shape="circle"
+                  icon={<BookOutlined />}
+                />
+              </div>
+
+              <div className="category-wrapper">
+                {categories.map((cate) => (
+                  <CategoryTag type={cate.id}>{cate.name}</CategoryTag>
+                ))}
+              </div>
+              <div className="overview-wrapper">
+                <Typography.Title level={3}>Overview</Typography.Title>
+                <Typography.Text className="description-text">
+                  {description}
+                </Typography.Text>
+              </div>
+            </RightContent>
+          </ContentWrapper>
+        </Container>
+      </BackgroundOpacity>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div<{ background: string }>`
-  /* background-image: url(${(props) => props.background}); */
+  background-image: url(${(props) => props.background});
   background-color: #f2f2f2;
   background-size: cover;
   min-height: 300px;
@@ -55,12 +82,36 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const BackgroundOpacity = styled.div`
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
 const RightContent = styled.div`
   display: flex;
   flex-direction: column;
 
+  .submenu-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    span {
+      color: #fff;
+    }
+  }
+
   .category-wrapper {
     display: flex;
+    margin-top: 12px;
+  }
+  h2,
+  h3 {
+    color: #fff;
+  }
+  .description-text {
+    color: #fff;
+  }
+  .overview-wrapper {
+    margin-top: 16px;
   }
 `;
 

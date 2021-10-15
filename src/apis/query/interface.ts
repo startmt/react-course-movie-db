@@ -77,3 +77,10 @@ export interface MovieDetailInterface {
   vote_average: number;
   vote_count: number;
 }
+
+export interface SearchMoviesResultInterface {
+  page: number;
+  results: MovieResultInterface[];
+  total_results: number;
+  total_pages: number;
+}

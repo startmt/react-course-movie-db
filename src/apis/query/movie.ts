@@ -2,6 +2,7 @@ import { client } from "../client";
 import {
   MovieDetailInterface,
   PopularMovieListInterface,
+  SearchMoviesResultInterface,
   UpcomingMovieListInterface,
 } from "./interface";
 
@@ -15,4 +16,10 @@ export const getUpcomingMovieList = async () => {
 
 export const getMovieDetailById = async (id: string) => {
   return (await client.get<MovieDetailInterface>(`/movie/${id}`)).data;
+};
+
+export const getSearchMovies = async (query: string) => {
+  return await client.get<SearchMoviesResultInterface>("/search/movie", {
+    params: { query },
+  });
 };

@@ -79,3 +79,24 @@ export const useMovieDetailQuery = (props: UseMovieDetailQueryProps) => {
     error,
   };
 };
+
+interface UseSearchMoviesQueryProps {
+  search: string;
+}
+
+export const useSearchMoviesQuery = (props: UseSearchMoviesQueryProps) => {
+  const { search } = props;
+
+  const { isFetching, isError, error, isSuccess, data } = useQuery(
+    [QueryName.QUERY_SEARCH_MOVIES, search],
+    async () => movieQuery.getSearchMovies(search)
+  );
+
+  return {
+    isFetching,
+    isError,
+    isSuccess,
+    error,
+    data,
+  };
+};
