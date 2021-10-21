@@ -6,6 +6,8 @@ const moviePopularSelector = (state: RootState) =>
 const movieUpcomingSelector = (state: RootState) =>
   state.movie.moviesByCat.upcoming;
 
+export const movieBookmark = (state: RootState) => state.movie.bookmark;
+
 export const movieDetailSelector = (state: RootState) =>
   state.movie.movieDetail;
 

@@ -11,8 +11,9 @@ interface MovieDetailPrimaryProps {
   title: string;
   categories: MovieDetailInterface["genres"];
   description: string;
-  handleAddBookmark: () => void;
+  handleBookmark: () => void;
   percent: number;
+  isBookmark: boolean;
 }
 const MovieDetailPrimary: React.FC<MovieDetailPrimaryProps> = (props) => {
   const {
@@ -22,7 +23,8 @@ const MovieDetailPrimary: React.FC<MovieDetailPrimaryProps> = (props) => {
     categories,
     description,
     percent,
-    handleAddBookmark,
+    handleBookmark,
+    isBookmark,
   } = props;
   return (
     <Wrapper background={backgroundImageUrl}>
@@ -35,8 +37,9 @@ const MovieDetailPrimary: React.FC<MovieDetailPrimaryProps> = (props) => {
               <div className="submenu-wrapper">
                 <Progress width={40} type="circle" percent={percent} />
                 <Button
-                  onClick={handleAddBookmark}
-                  type="primary"
+                  className="button-icon-bookmark"
+                  onClick={handleBookmark}
+                  type={isBookmark ? "primary" : "default"}
                   shape="circle"
                   icon={<BookOutlined />}
                 />
@@ -96,6 +99,11 @@ const RightContent = styled.div`
     align-items: center;
     span {
       color: #fff;
+    }
+    .button-icon-bookmark {
+      span {
+        color: unset;
+      }
     }
   }
 

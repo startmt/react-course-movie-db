@@ -16,6 +16,7 @@ const client = new QueryClient({
 const IndexPage = lazy(() => import("./pages/index"));
 const MovieDetail = lazy(() => import("./pages/movie-detail"));
 const SearchPage = lazy(() => import("./pages/search"));
+const BookmarkPage = lazy(() => import("./pages/bookmark"));
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/" exact component={IndexPage} />
               <Route path="/movie/:movieId" component={MovieDetail} />
               <Route path="/search" component={SearchPage} />
+              <Route path="/bookmark" component={BookmarkPage} />
             </Switch>
           </Router>
         </Suspense>

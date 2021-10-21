@@ -5,6 +5,7 @@ import {
   UpcomingMovieListInterface,
   MovieDetailInterface,
 } from "../../apis/query/interface";
+import isEqual from "lodash/isEqual";
 
 export interface SetPopularMoviePayloadAction {
   data: PopularMovieListInterface;
@@ -16,6 +17,18 @@ export interface SetUpcomingMoviePayloadAction {
 
 export interface SetMovieDetailPayloadAction {
   data: MovieDetailInterface;
+}
+
+export interface AddMovieBookmarkPayloadAction {
+  id: string;
+}
+
+export interface RemoveMovieBookmarkPayloadAction {
+  id: string;
+}
+
+export interface InitMovieBookmarkPayloadAction {
+  bookmark: string[];
 }
 
 const initialState = {
@@ -38,6 +51,7 @@ const initialState = {
     },
   },
   movieDetail: {} as MovieDetailInterface,
+  bookmark: [] as string[],
 };
 
 export const slice = createSlice({
@@ -62,6 +76,27 @@ export const slice = createSlice({
       action: PayloadAction<SetMovieDetailPayloadAction>
     ) => {
       state.movieDetail = action.payload.data;
+    },
+    addMovieBookmark: (
+      state,
+      action: PayloadAction<AddMovieBookmarkPayloadAction>
+    ) => {
+      const payload = new Set([...state.bookmark, action.payload.id]) as any;
+      state.bookmark = [...payload];
+    },
+    removeMovieBookmark: (
+      state,
+      action: PayloadAction<RemoveMovieBookmarkPayloadAction>
+    ) => {
+      state.bookmark = state.bookmark.filter(
+        (b) => !isEqual(b, action.payload.id)
+      );
+    },
+    initBookmark: (
+      state,
+      action: PayloadAction<InitMovieBookmarkPayloadAction>
+    ) => {
+      state.bookmark = action.payload.bookmark;
     },
   },
 });

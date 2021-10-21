@@ -1,4 +1,5 @@
-import { Card } from "antd";
+import { BookOutlined } from "@ant-design/icons";
+import { Button, Card } from "antd";
 import React from "react";
 
 import styled from "styled-components";
@@ -9,13 +10,44 @@ interface MovieCardProps {
   imageUrl: string;
   title: string;
   publishDate: string;
+  className?: string;
+  onClick: () => void;
+  onClickBookmark: () => void;
+  isBookmark: boolean;
 }
 
 const MovieCard: React.FC<MovieCardProps> = (props) => {
-  const { imageUrl, title, publishDate } = props;
+  const {
+    imageUrl,
+    title,
+    publishDate,
+    className,
+    isBookmark,
+    onClick,
+    onClickBookmark,
+  } = props;
+
   return (
-    <CardWrapper hoverable cover={<CardImage src={imageUrl} alt={title} />}>
-      <Meta title={title} description={publishDate} />
+    <CardWrapper
+      className={className ?? ""}
+      hoverable
+      cover={
+        <>
+          <ButtonBookmark
+            onClick={onClickBookmark}
+            type={isBookmark ? "primary" : "default"}
+            shape="round"
+          >
+            <BookOutlined />
+          </ButtonBookmark>
+          <CardImage src={imageUrl} alt={title} />
+        </>
+      }
+    >
+      <Meta
+        title={<div onClick={onClick}>{title}</div>}
+        description={publishDate}
+      />
     </CardWrapper>
   );
 };
@@ -30,4 +62,14 @@ const CardImage = styled.img`
   width: 200px;
   height: 250px;
   object-fit: cover;
+`;
+
+const ButtonBookmark = styled(Button)`
+  position: absolute;
+  width: 24px;
+  right: 8px;
+  top: 8px;
+  svg {
+    margin-left: -6px;
+  }
 `;

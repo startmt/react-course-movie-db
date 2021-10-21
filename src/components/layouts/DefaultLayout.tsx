@@ -1,5 +1,8 @@
-import { Layout } from "antd";
+import { Button, Layout } from "antd";
 import styled from "styled-components";
+import { BookOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+
 const { Header, Content, Footer } = Layout;
 
 const ContentWrapper = styled.div`
@@ -9,11 +12,23 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const HeaderWrapper = styled(Header)`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const DefaultLayout: React.FC = (props) => {
   const { children } = props;
   return (
     <Layout>
-      <Header>Header</Header>
+      <HeaderWrapper>
+        <Link to="/bookmark">
+          <Button>
+            <BookOutlined />
+          </Button>
+        </Link>
+      </HeaderWrapper>
       <ContentWrapper>
         <Content className="content-fullwidth">{children}</Content>
       </ContentWrapper>

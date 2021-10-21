@@ -31,7 +31,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
+    "test": "craco test --watchAll=false",
     "eject": "craco eject"
   },
   "eslintConfig": {
@@ -56,5 +56,19 @@
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.175",
     "@types/styled-components": "^5.1.14"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "html"
+    ]
   }
 }

@@ -59,7 +59,7 @@ export const useMovieDetailQuery = (props: UseMovieDetailQueryProps) => {
 
   const dispatch = useDispatch();
 
-  const { isFetching, isError, error, isSuccess } = useQuery(
+  const { data, isFetching, isError, error, isSuccess } = useQuery(
     [QueryName.QUERY_MOVIE_DETAIL, id],
     async () => movieQuery.getMovieDetailById(id),
     {
@@ -77,6 +77,7 @@ export const useMovieDetailQuery = (props: UseMovieDetailQueryProps) => {
     isError,
     isSuccess,
     error,
+    data,
   };
 };
 

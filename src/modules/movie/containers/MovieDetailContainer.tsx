@@ -14,16 +14,27 @@ interface MovieParamInteface {
 const useMovieDetailContainer = () => {
   const { movieId } = useParams<MovieParamInteface>();
   const { isFetching, isSuccess } = useMovieDetailQuery({ id: movieId });
-  const { handleAddBookmark } = useBookmark();
+  const { bookmark, isBookmark, handleToggleBookmark } = useBookmark();
 
   const movieDetail = useSelector(movieDetailSelector);
 
-  return { movieDetail, isSuccess, isFetching, handleAddBookmark };
+  return {
+    movieDetail,
+    isSuccess,
+    isFetching,
+    handleToggleBookmark,
+    isBookmark,
+  };
 };
 
 const MovieDetailContainer = () => {
-  const { movieDetail, isSuccess, isFetching, handleAddBookmark } =
-    useMovieDetailContainer();
+  const {
+    movieDetail,
+    isSuccess,
+    isFetching,
+    handleToggleBookmark,
+    isBookmark,
+  } = useMovieDetailContainer();
 
   if (isFetching) {
     return <Skeleton.Button active size="large" shape="square" />;
@@ -34,8 +45,9 @@ const MovieDetailContainer = () => {
   return (
     <MovieDetailPrimary
       percent={percentFromVoteAverage}
-      handleAddBookmark={() => {
-        handleAddBookmark(movieDetail.id.toString());
+      isBookmark={isBookmark(movieDetail.id.toString())}
+      handleBookmark={() => {
+        handleToggleBookmark(movieDetail.id.toString());
       }}
       backgroundImageUrl={`https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}`}
       posterImageUrl={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
